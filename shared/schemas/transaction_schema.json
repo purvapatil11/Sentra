@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AegisPay Transaction",
+  "type": "object",
+  "required": [
+    "transaction_id",
+    "customer_id",
+    "amount",
+    "customer_avg_amount",
+    "amount_ratio",
+    "transaction_hour",
+    "velocity_10m",
+    "velocity_24h",
+    "account_age_days",
+    "beneficiary_age_minutes",
+    "device_trust_score",
+    "geo_distance_km",
+    "is_new_device",
+    "is_new_beneficiary",
+    "channel",
+    "authentication_method",
+    "authentication_success",
+    "label"
+  ],
+  "properties": {
+    "transaction_id": {
+      "type": "string"
+    },
+    "customer_id": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number",
+      "minimum": 0
+    },
+    "customer_avg_amount": {
+      "type": "number",
+      "minimum": 0
+    },
+    "amount_ratio": {
+      "type": "number",
+      "minimum": 0
+    },
+    "transaction_hour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23
+    },
+    "velocity_10m": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "velocity_24h": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "account_age_days": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "beneficiary_age_minutes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "device_trust_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "geo_distance_km": {
+      "type": "number",
+      "minimum": 0
+    },
+    "is_new_device": {
+      "type": "integer",
+      "enum": [0, 1]
+    },
+    "is_new_beneficiary": {
+      "type": "integer",
+      "enum": [0, 1]
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "upi",
+        "card",
+        "net_banking",
+        "wallet"
+      ]
+    },
+    "authentication_method": {
+      "type": "string",
+      "enum": [
+        "pin",
+        "otp",
+        "biometric",
+        "password",
+        "none"
+      ]
+    },
+    "authentication_success": {
+      "type": "integer",
+      "enum": [0, 1]
+    },
+    "attack_type": {
+      "type": ["string", "null"],
+      "enum": [
+        "account_takeover",
+        "ai_social_engineering",
+        "synthetic_identity",
+        null
+      ]
+    },
+    "label": {
+      "type": "integer",
+      "enum": [0, 1]
+    }
+  },
+  "additionalProperties": false
+}

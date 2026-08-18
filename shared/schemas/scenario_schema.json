@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AegisPay Fraud Scenario",
+  "type": "object",
+  "required": [
+    "scenario_id",
+    "attack_family",
+    "target_profile",
+    "fraud_ratio",
+    "amount_multiplier",
+    "velocity_multiplier",
+    "new_device_probability",
+    "new_beneficiary_probability",
+    "geo_anomaly_probability",
+    "evasion_strength",
+    "attack_round",
+    "mutation_strategy",
+    "objective"
+  ],
+  "properties": {
+    "scenario_id": {
+      "type": "string"
+    },
+    "attack_family": {
+      "type": "string",
+      "enum": [
+        "account_takeover",
+        "ai_social_engineering",
+        "synthetic_identity"
+      ]
+    },
+    "target_profile": {
+      "type": "string",
+      "enum": [
+        "existing_customer",
+        "high_value_customer",
+        "new_customer"
+      ]
+    },
+    "fraud_ratio": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "amount_multiplier": {
+      "type": "number",
+      "minimum": 0
+    },
+    "velocity_multiplier": {
+      "type": "number",
+      "minimum": 0
+    },
+    "new_device_probability": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "new_beneficiary_probability": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "geo_anomaly_probability": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "evasion_strength": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "attack_round": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "mutation_strategy": {
+      "type": "string",
+      "enum": [
+        "baseline",
+        "reduce_amount",
+        "lower_velocity",
+        "reuse_device",
+        "delay_beneficiary",
+        "mixed",
+        "reduce_geo_anomaly"
+      ]
+    },
+    "objective": {
+      "type": "string",
+      "enum": [
+        "maximize_detection_evasion"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

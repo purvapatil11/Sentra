@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AegisPay Red Team Feedback",
+  "description": "Blue Team detection feedback supplied to the adaptive Red Team.",
+
+  "type": "object",
+
+  "required": [
+    "scenario_id",
+    "attack_family",
+    "attack_round",
+    "total_transactions",
+    "fraud_transactions",
+    "fraud_detected",
+    "fraud_missed",
+    "detection_rate",
+    "evasion_rate",
+    "false_positive_rate",
+    "average_risk_score",
+    "recommended_mutation"
+  ],
+
+  "properties": {
+    "scenario_id": {
+      "type": "string"
+    },
+
+    "attack_family": {
+      "type": "string",
+      "enum": [
+        "account_takeover",
+        "ai_social_engineering",
+        "synthetic_identity"
+      ]
+    },
+
+    "attack_round": {
+      "type": "integer",
+      "minimum": 1
+    },
+
+    "total_transactions": {
+      "type": "integer",
+      "minimum": 0
+    },
+
+    "fraud_transactions": {
+      "type": "integer",
+      "minimum": 0
+    },
+
+    "fraud_detected": {
+      "type": "integer",
+      "minimum": 0
+    },
+
+    "fraud_missed": {
+      "type": "integer",
+      "minimum": 0
+    },
+
+    "detection_rate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+
+    "evasion_rate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+
+    "false_positive_rate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+
+    "average_risk_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+
+    "recommended_mutation": {
+      "type": "string",
+      "enum": [
+        "none",
+        "reduce_amount",
+        "lower_velocity",
+        "reuse_device",
+        "delay_beneficiary",
+        "reduce_geo_anomaly",
+        "mixed"
+      ]
+    },
+
+    "notes": {
+      "type": "string"
+    }
+  },
+
+  "additionalProperties": false
+}
