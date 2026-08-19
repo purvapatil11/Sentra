@@ -1,5 +1,9 @@
-from generate_scenario import generate_scenario
-from llm_scenario_generator import generate_llm_scenario
+try:
+    from ml.scenario_generator.generate_scenario import generate_scenario
+    from ml.scenario_generator.llm_scenario_generator import generate_llm_scenario
+except ModuleNotFoundError:
+    from generate_scenario import generate_scenario
+    from llm_scenario_generator import generate_llm_scenario
 
 
 def get_scenario(attack_family: str) -> dict:

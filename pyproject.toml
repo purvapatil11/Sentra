@@ -1,0 +1,15 @@
+[project]
+name = "aegispay"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "jsonschema>=4.25.1",
+    "joblib>=1.5.3",
+    "openai>=2.11.0",
+    "pandas>=3.0.5",
+    "python-dotenv>=1.2.1",
+    "scikit-learn>=1.9.0",
+    "xgboost>=3.4.1",
+]

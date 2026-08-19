@@ -93,6 +93,72 @@ def generate_scenario(attack_family: str) -> Dict:
 
     return scenarios[attack_family]
 
+
+def mutate_scenario(
+    scenario: dict,
+    feedback: dict,
+) -> dict:
+    next_scenario = dict(scenario)
+    mutation = feedback.get(
+        "recommended_mutation",
+        "none",
+    )
+
+    next_scenario["scenario_id"] = f"SCN-{uuid.uuid4().hex[:8].upper()}"
+    next_scenario["attack_round"] = int(
+        scenario.get("attack_round", 1)
+    ) + 1
+    next_scenario["mutation_strategy"] = mutation
+
+    evasion_rate = float(feedback.get("evasion_rate", 0) or 0)
+    detection_rate = float(feedback.get("detection_rate", 0) or 0)
+
+    if mutation == "reduce_amount":
+        next_scenario["amount_multiplier"] *= 0.80
+    elif mutation == "lower_velocity":
+        next_scenario["velocity_multiplier"] *= 0.75
+    elif mutation == "reuse_device":
+        next_scenario["new_device_probability"] *= 0.55
+    elif mutation == "delay_beneficiary":
+        next_scenario["new_beneficiary_probability"] *= 0.65
+    elif mutation == "reduce_geo_anomaly":
+        next_scenario["geo_anomaly_probability"] *= 0.60
+    elif mutation == "mixed":
+        next_scenario["amount_multiplier"] *= 0.88
+        next_scenario["velocity_multiplier"] *= 0.85
+        next_scenario["new_device_probability"] *= 0.80
+        next_scenario["geo_anomaly_probability"] *= 0.80
+
+    if detection_rate >= 0.70:
+        next_scenario["evasion_strength"] += 0.12
+    elif evasion_rate >= 0.50:
+        next_scenario["fraud_ratio"] += 0.02
+
+    bounded_probability_fields = [
+        "fraud_ratio",
+        "new_device_probability",
+        "new_beneficiary_probability",
+        "geo_anomaly_probability",
+        "evasion_strength",
+    ]
+
+    for field in bounded_probability_fields:
+        next_scenario[field] = round(
+            max(0.0, min(1.0, float(next_scenario[field]))),
+            4,
+        )
+
+    for field in ["amount_multiplier", "velocity_multiplier"]:
+        next_scenario[field] = round(
+            max(0.1, float(next_scenario[field])),
+            4,
+        )
+
+    if not validate_scenario(next_scenario):
+        raise ValueError("Mutated scenario failed schema validation.")
+
+    return next_scenario
+
 if __name__ == "__main__":
 
     scenario = generate_scenario("account_takeover")

@@ -6,7 +6,13 @@ from dotenv import load_dotenv
 from jsonschema import Draft202012Validator
 from openai import OpenAI, RateLimitError
 
-from generate_scenario import generate_scenario, validate_scenario
+try:
+    from ml.scenario_generator.generate_scenario import (
+        generate_scenario,
+        validate_scenario,
+    )
+except ModuleNotFoundError:
+    from generate_scenario import generate_scenario, validate_scenario
 
 
 load_dotenv()
