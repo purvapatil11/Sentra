@@ -164,8 +164,8 @@ if __name__ == "__main__":
     scenario = generate_scenario("account_takeover")
 
     if validate_scenario(scenario):
-        print("✅ Scenario is valid")
+        print("Scenario is valid")
         print(json.dumps(scenario, indent=2))
 
     else:
-        print("❌ Scenario is invalid")
+        print("Scenario is invalid")

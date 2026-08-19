@@ -252,7 +252,7 @@ if __name__ == "__main__":
         "account_takeover"
     )
 
-    print("\n✅ AegisPay Scenario Generated\n")
+    print("\nAegisPay Scenario Generated\n")
 
     print(
         json.dumps(
