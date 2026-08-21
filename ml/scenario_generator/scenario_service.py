@@ -14,20 +14,20 @@ def get_scenario(attack_family: str) -> dict:
             attack_family
         )
 
-        print("✅ LLM scenario generated")
+        print("Scenario generated")
 
         return scenario
 
     except Exception as error:
 
-        print(f"⚠️ LLM failed: {error}")
+        print(f"LLM failed: {error}")
         print("Using deterministic fallback...")
 
         scenario = generate_scenario(
             attack_family
         )
 
-        print("✅ Fallback scenario generated")
+        print("Fallback scenario generated")
 
         return scenario
 
