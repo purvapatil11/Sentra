@@ -1,2 +1,6 @@
 __pycache__/
 *.pyc
+*.sqlite
+backend/data/*.csv
+frontend/.next/
+frontend/node_modules/
