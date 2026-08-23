@@ -101,7 +101,7 @@ def mutate_scenario(
     next_scenario = dict(scenario)
     mutation = feedback.get(
         "recommended_mutation",
-        "none",
+        "baseline",
     )
 
     next_scenario["scenario_id"] = f"SCN-{uuid.uuid4().hex[:8].upper()}"

@@ -77,6 +77,36 @@ fraud mechanism different from simple account takeover.
 
 ## Pending
 
-Model training is blocked until generated transaction data exists at
-`backend/data/transactions.csv`. Once that file is available, train both models
-and test `ml/models/predict.py`.
+Model training is unblocked. Generated transaction data now exists at
+`backend/data/transactions.csv`.
+
+Latest local demo run:
+
+- Generated 5,000 transactions with 609 fraud examples.
+- Trained XGBoost and saved `ml/models/saved/xgboost_fraud_model.joblib`.
+- Trained Isolation Forest and saved
+  `ml/models/saved/isolation_forest_model.joblib`.
+- Smoke-tested `ml/models/predict.py`; the sample high-risk transaction returns
+  `decision: BLOCK`.
+- Wired the trained model into the backend `/score` API and live-tested it with
+  a high-risk transaction payload.
+
+Useful commands:
+
+```powershell
+.\.venv\Scripts\python.exe backend\app\simulator\generate_transactions.py --customers 500 --transactions-per-customer 10 --fraud-ratio 0.12
+.\.venv\Scripts\python.exe ml\models\train_xgboost.py
+.\.venv\Scripts\python.exe ml\models\train_isolation_forest.py
+.\.venv\Scripts\python.exe ml\models\predict.py
+.\.venv\Scripts\python.exe -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
+```
+
+Live API smoke test:
+
+```powershell
+Invoke-RestMethod -Uri http://127.0.0.1:8000/score -Method Post -ContentType 'application/json' -Body '{"transaction_id":"TXN_DEMO_001","amount":15000.0,"customer_avg_amount":1200.0,"amount_ratio":12.5,"transaction_hour":2,"velocity_10m":12,"velocity_24h":65,"account_age_days":500,"beneficiary_age_minutes":5,"device_trust_score":0.12,"geo_distance_km":1800.0,"is_new_device":1,"is_new_beneficiary":1,"channel":"upi","authentication_method":"otp","authentication_success":1}' | ConvertTo-Json -Depth 6
+```
+
+Demo caveat: the current synthetic fraud rules are highly separable, so XGBoost
+can score perfectly on this generated dataset. For judging, describe it as an
+MVP validation dataset rather than real-world model performance.
