@@ -66,7 +66,7 @@ export async function launchAttack(input: LaunchAttackInput): Promise<Simulation
 }
 
 export async function getTransactions(): Promise<{ transactions: Transaction[] }> {
-  return request("/transactions?limit=80");
+  return request("/transactions?limit=5000");
 }
 
 export async function getCases(): Promise<{ cases: FraudCase[] }> {

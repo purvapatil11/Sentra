@@ -114,6 +114,9 @@
     "label": {
       "type": "integer",
       "enum": [0, 1]
+    },
+    "score": {
+      "$ref": "case_schema.json"
     }
   },
   "additionalProperties": false

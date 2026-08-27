@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, GitBranch, RadioTower, RotateCcw } from "lucide-react";
+import { ArrowRight, BadgeCheck, GitBranch, RotateCcw, TriangleAlert } from "lucide-react";
 import type { Feedback, Scenario, SimulationRun } from "@/lib/types";
 
 interface OrchestrationPanelProps {
@@ -16,6 +16,25 @@ export function OrchestrationPanel({
   nextScenario,
   onFeedback,
 }: OrchestrationPanelProps) {
+  const generation = run?.scenario?._generation;
+  const isLiveLlm = generation?.source === "llm";
+  const isFallback = generation?.source === "local_fallback";
+  const provenanceClass = isLiveLlm
+    ? "border-emerald-300/30 bg-emerald-300/[0.07]"
+    : isFallback
+      ? "border-amber-300/30 bg-amber-300/[0.07]"
+      : "border-slate-400/20 bg-white/[0.04]";
+  const provenanceTextClass = isLiveLlm
+    ? "text-emerald-200"
+    : isFallback
+      ? "text-amber-200"
+      : "text-slate-200";
+  const provenanceTitle = isLiveLlm
+    ? "Verified live LLM scenario"
+    : isFallback
+      ? "Local fallback scenario"
+      : "Provider provenance unavailable";
+
   return (
     <section className="rounded-xl border border-slate-400/20 bg-[#0d1219]/95 p-5">
       <div className="flex items-start justify-between gap-4">
@@ -54,15 +73,30 @@ export function OrchestrationPanel({
       </div>
 
       <div className="mt-5 grid gap-4 lg:grid-cols-2">
-        <div className="rounded-lg border border-emerald-300/30 bg-emerald-300/[0.07] p-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-emerald-200">
-            <RadioTower className="h-4 w-4" />
-            Resilience fallback - standby
+        <div className={`rounded-lg border p-4 ${provenanceClass}`}>
+          <div className={`flex items-center gap-2 text-sm font-semibold ${provenanceTextClass}`}>
+            {isLiveLlm ? <BadgeCheck className="h-4 w-4" /> : <TriangleAlert className="h-4 w-4" />}
+            {provenanceTitle}
           </div>
-          <p className="mt-2 text-sm leading-6 text-slate-300">
-            Standby policy only. If a live LLM call fails, AegisPay switches to deterministic
-            scenario generation so the demo still runs end to end.
-          </p>
+          {generation ? (
+            <div className="mt-3 grid gap-1 text-sm leading-6 text-slate-300">
+              <p><span className="text-slate-400">Provider:</span> {generation.provider}</p>
+              <p><span className="text-slate-400">Model:</span> {generation.model}</p>
+              {generation.response_id ? (
+                <p className="break-all"><span className="text-slate-400">Response ID:</span> {generation.response_id}</p>
+              ) : null}
+              {generation.generated_at ? (
+                <p><span className="text-slate-400">Generated:</span> {new Date(generation.generated_at).toLocaleString()}</p>
+              ) : null}
+              {generation.fallback_reason ? (
+                <p className="text-amber-100"><span className="text-amber-300">Reason:</span> {generation.fallback_reason}</p>
+              ) : null}
+            </div>
+          ) : (
+            <p className="mt-2 text-sm leading-6 text-slate-300">
+              This run was created before provenance was added, or the backend has not been restarted with the latest code. Restart FastAPI, then launch a new simulation.
+            </p>
+          )}
         </div>
 
         <div className="rounded-lg border border-violet-300/30 bg-violet-300/[0.07] p-4">

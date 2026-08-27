@@ -9,9 +9,12 @@
     "case_id",
     "transaction_id",
     "xgboost_score",
+    "fraud_probability",
     "anomaly_score",
+    "is_anomaly",
     "risk_score",
     "decision",
+    "action",
     "risk_level",
     "explanation",
     "top_risk_factors"
@@ -32,10 +35,20 @@
       "maximum": 1
     },
 
+    "fraud_probability": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+
     "anomaly_score": {
       "type": "number",
       "minimum": 0,
       "maximum": 1
+    },
+
+    "is_anomaly": {
+      "type": "boolean"
     },
 
     "risk_score": {
@@ -45,6 +58,16 @@
     },
 
     "decision": {
+      "type": "string",
+      "enum": [
+        "ALLOW",
+        "MONITOR",
+        "VERIFY",
+        "BLOCK"
+      ]
+    },
+
+    "action": {
       "type": "string",
       "enum": [
         "ALLOW",
