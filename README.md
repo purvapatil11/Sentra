@@ -36,7 +36,7 @@ If models are missing, regenerate data and train:
 ## Run Backend
 
 ```powershell
-.\.venv\Scripts\python.exe -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
+python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
 ```
 
 Open:

@@ -69,11 +69,22 @@ def launch_simulation(payload: LaunchRequest):
         )
         raise HTTPException(status_code=400, detail=str(error)) from error
 
+    generation = scenario.get("_generation", {})
+    generation_source = generation.get("source", "unknown")
     publish_event(
         "RED",
-        f"Scenario {scenario['scenario_id']} ready for {scenario['attack_family']}",
+        (
+            f"Scenario {scenario['scenario_id']} ready for {scenario['attack_family']} "
+            f"via {generation_source}"
+        ),
         run_id=run_id,
-        data={"scenario_id": scenario["scenario_id"]},
+        data={
+            "scenario_id": scenario["scenario_id"],
+            "generation_source": generation_source,
+            "provider": generation.get("provider"),
+            "model": generation.get("model"),
+            "response_id": generation.get("response_id"),
+        },
     )
 
     if payload.fraud_ratio is not None:
@@ -93,6 +104,7 @@ def launch_simulation(payload: LaunchRequest):
     )
 
     cases = []
+    scored_transactions = []
     if payload.score_all:
         publish_event(
             "MODEL",
@@ -106,6 +118,10 @@ def launch_simulation(payload: LaunchRequest):
             }
             for index, transaction in enumerate(transactions, start=1):
                 result = predict_transaction(transaction)
+                scored_transactions.append({
+                    **transaction,
+                    "score": result,
+                })
 
                 if result["decision"] in {"VERIFY", "BLOCK"}:
                     cases.append(result)
@@ -128,9 +144,11 @@ def launch_simulation(payload: LaunchRequest):
                 status_code=503,
                 detail=f"Fraud models are not trained yet: {error}",
             ) from error
+    else:
+        scored_transactions = transactions
 
     save_run(run_id, scenario, transactions)
-    save_transactions(run_id, transactions)
+    save_transactions(run_id, scored_transactions)
     save_cases(run_id, cases)
     blocked = sum(case["decision"] == "BLOCK" for case in cases)
     verified = sum(case["decision"] == "VERIFY" for case in cases)

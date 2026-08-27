@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime, timezone
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -60,6 +61,26 @@ def local_fallback_enabled() -> bool:
     ).lower() in {"1", "true", "yes"}
 
 
+def attach_generation_provenance(
+    scenario: dict,
+    *,
+    source: str,
+    provider: str,
+    model: str,
+    response_id: str | None = None,
+    fallback_reason: str | None = None,
+) -> dict:
+    scenario["_generation"] = {
+        "source": source,
+        "provider": provider,
+        "model": model,
+        "response_id": response_id,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "fallback_reason": fallback_reason,
+    }
+    return scenario
+
+
 def generate_local_fallback_scenario(
     attack_family: str,
     reason: str
@@ -72,7 +93,13 @@ def generate_local_fallback_scenario(
         )
 
     print(f"Using local fallback scenario: {reason}")
-    return scenario
+    return attach_generation_provenance(
+        scenario,
+        source="local_fallback",
+        provider="AegisPay deterministic engine",
+        model="local-rules-v1",
+        fallback_reason=reason,
+    )
 
 
 def get_client() -> OpenAI:
@@ -208,7 +235,13 @@ def generate_llm_scenario(
                     last_errors = get_validation_errors(schema, scenario)
 
                 if not last_errors and validate_scenario(scenario):
-                    return scenario
+                    return attach_generation_provenance(
+                        scenario,
+                        source="llm",
+                        provider="OpenRouter",
+                        model=getattr(response, "model", None) or model,
+                        response_id=getattr(response, "id", None),
+                    )
 
         messages.extend(
             [

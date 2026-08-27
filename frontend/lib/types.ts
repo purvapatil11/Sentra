@@ -35,6 +35,7 @@ export interface Transaction {
   authentication_success: 0 | 1;
   attack_type: AttackFamily | null;
   label: 0 | 1;
+  score?: FraudCase;
 }
 
 export interface RiskFactor {
@@ -73,6 +74,14 @@ export interface Scenario {
   attack_round: number;
   mutation_strategy: string;
   objective: string;
+  _generation?: {
+    source: "llm" | "local_fallback" | "adaptive_engine";
+    provider: string;
+    model: string;
+    response_id: string | null;
+    generated_at: string | null;
+    fallback_reason: string | null;
+  };
 }
 
 export interface SimulationRun {

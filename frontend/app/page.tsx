@@ -23,6 +23,7 @@ import { SignalTicker } from "@/components/SignalTicker";
 import { Sidebar } from "@/components/Sidebar";
 import { SOCConsole } from "@/components/SOCConsole";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { TransactionDecisionsTable } from "@/components/TransactionDecisionsTable";
 import {
   generateCustomers,
   generateFeedback,
@@ -55,7 +56,7 @@ export default function Home() {
 
   const metrics = useMemo(() => {
     const transactions = latestRun?.total_transactions ?? state.transactions.length;
-    const blocked = state.cases.filter((item) => item.decision === "BLOCK" || item.decision === "VERIFY").length;
+    const blocked = state.transactions.filter((item) => item.score?.decision === "BLOCK").length;
     const threats = state.cases.filter((item) => item.risk_level === "HIGH" || item.risk_level === "CRITICAL").length;
     const lossPrevented = state.cases.reduce((sum, item) => sum + item.risk_score * 72000, 0);
 
@@ -176,7 +177,7 @@ export default function Home() {
           <MetricCard
             label="Fraud Attempts Blocked"
             value={loading ? "--" : formatNumber(metrics.blocked)}
-            detail="VERIFY and BLOCK decisions"
+            detail="BLOCK decisions only"
             tone="green"
             icon={ShieldCheck}
           />
@@ -285,6 +286,22 @@ export default function Home() {
         </motion.section>
 
         <motion.section
+          id="transactions"
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          className="mt-5 panel p-5"
+        >
+          <div className="mb-5">
+            <div className="section-marker text-emerald-300" data-index="03">Decision Ledger</div>
+            <h2 className="mt-2 text-xl font-semibold text-white">
+              Every scored transaction and policy decision
+            </h2>
+          </div>
+          <TransactionDecisionsTable transactions={state.transactions} />
+        </motion.section>
+
+        <motion.section
           id="cases"
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -292,9 +309,9 @@ export default function Home() {
           className="mt-5 panel p-5"
         >
           <div className="mb-5">
-            <div className="section-marker text-cyan-300" data-index="03">Blue Team Cases</div>
+            <div className="section-marker text-cyan-300" data-index="04">Blue Team Cases</div>
             <h2 className="mt-2 text-xl font-semibold text-white">
-              Transaction table, risk score, decision, and explanation text
+              Flagged VERIFY and BLOCK decisions requiring analyst attention
             </h2>
           </div>
           <CasesTable cases={state.cases} />

@@ -98,7 +98,13 @@ def mutate_scenario(
     scenario: dict,
     feedback: dict,
 ) -> dict:
-    next_scenario = dict(scenario)
+    # Generation provenance describes the original scenario and must not be
+    # copied onto a locally mutated adaptive round.
+    next_scenario = {
+        key: value
+        for key, value in scenario.items()
+        if key != "_generation"
+    }
     mutation = feedback.get(
         "recommended_mutation",
         "baseline",
@@ -156,6 +162,15 @@ def mutate_scenario(
 
     if not validate_scenario(next_scenario):
         raise ValueError("Mutated scenario failed schema validation.")
+
+    next_scenario["_generation"] = {
+        "source": "adaptive_engine",
+        "provider": "AegisPay feedback loop",
+        "model": "adaptive-rules-v1",
+        "response_id": None,
+        "generated_at": None,
+        "fallback_reason": None,
+    }
 
     return next_scenario
 

@@ -27,6 +27,9 @@ Important fields:
   auth context.
 - `label`: `0` for legitimate, `1` for fraud. Required for training/evaluation.
 - `attack_type`: optional fraud family label for demos and analysis.
+- `score`: optional Blue Team case-schema result attached after simulation
+  scoring. Raw training transactions may omit it; persisted scored runs include
+  it for every transaction.
 
 ## 2. Scenario Schema
 
@@ -36,6 +39,10 @@ Owner: Dinesh produces it, Purva's simulator consumes it.
 
 Purpose: structured Red Team attack parameters. The LLM scenario generator and
 deterministic fallback must both return this format.
+
+After schema validation, runtime responses append `_generation` provenance.
+It identifies `llm`, `local_fallback`, or `adaptive_engine` output and records
+the provider, model, generation time, response ID, and any fallback reason.
 
 Allowed `attack_family` values:
 
