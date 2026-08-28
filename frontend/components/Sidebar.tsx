@@ -32,10 +32,9 @@ export function Sidebar() {
     <aside className="sticky top-5 hidden h-[calc(100vh-40px)] w-60 shrink-0 flex-col rounded-lg border border-white/[0.06] bg-[#111] p-4 lg:flex">
       <div className="flex items-center gap-3 border-b border-white/[0.06] pb-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo.png" alt="Sentra logo" className="h-14 w-14 rounded object-contain" />
+        <img src="/logo.png" alt="Sentra logo" className="h-20 w-20 rounded object-contain" />
         <div>
-          <div className="text-sm font-medium text-[#e5e5e5]">Sentra</div>
-          <div className="text-xs text-[#737373]">Fraud Defense</div>
+          <div className="text-2xl font-bold text-[#e5e5e5]">Sentra</div>
         </div>
       </div>
 
