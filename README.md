@@ -128,3 +128,6 @@ For a hosted frontend, create a GitHub repository variable named
 `NEXT_PUBLIC_SENTRA_API` containing the public backend URL before publishing the
 image. If it is not set, the frontend image defaults to
 `http://127.0.0.1:8000`, which is suitable when running both services locally.
+
+For the complete Render backend and Vercel frontend procedure, see
+[`DEPLOYMENT.md`](DEPLOYMENT.md).

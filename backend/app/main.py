@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -16,14 +18,22 @@ app = FastAPI(
     version="1.0.0"
 )
 
+default_cors_origins = [
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+    "http://localhost:5173",
+]
+configured_cors_origins = os.getenv("SENTRA_CORS_ORIGINS", "")
+cors_origins = [
+    origin.strip().rstrip("/")
+    for origin in configured_cors_origins.split(",")
+    if origin.strip()
+] or default_cors_origins
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://127.0.0.1:3000",
-        "http://localhost:3000",
-        "http://127.0.0.1:5173",
-        "http://localhost:5173",
-    ],
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

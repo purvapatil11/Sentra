@@ -1,11 +1,13 @@
 import json
+import os
 import sqlite3
 from pathlib import Path
 from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-DB_PATH = PROJECT_ROOT / "backend" / "data" / "sentra.sqlite"
+DEFAULT_DB_PATH = PROJECT_ROOT / "backend" / "data" / "sentra.sqlite"
+DB_PATH = Path(os.getenv("SENTRA_DB_PATH", str(DEFAULT_DB_PATH))).expanduser()
 
 
 def get_connection():
