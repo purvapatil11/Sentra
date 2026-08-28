@@ -131,11 +131,11 @@ export default function Home() {
         <SignalTicker />
 
         <section id="dashboard" className="flex min-h-[200px] flex-col items-start justify-between gap-6 py-8 xl:flex-row">
-          <div>
-            <h1 className="max-w-3xl text-3xl font-semibold tracking-tight text-[#e5e5e5] md:text-4xl">
-              Payment Fraud Defense
+          <div className="w-full">
+            <h1 className="mx-auto mt-16 mb-8 text-center text-5xl font-semibold tracking-tight text-[#e5e5e5] md:text-6xl whitespace-nowrap">
+              Smarted defence for every transaction
             </h1>
-            <p className="mt-3 max-w-xl text-sm leading-6 text-[#737373]">
+            <p className="mx-auto mb-16 mt-3 max-w-xl text-center text-sm leading-6 text-[#737373]">
               Red Team attacks, synthetic fraud streams, Blue Team model scoring,
               explainable cases, and adaptive feedback.
             </p>
