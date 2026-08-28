@@ -5,7 +5,7 @@ from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-DB_PATH = PROJECT_ROOT / "backend" / "data" / "aegispay.sqlite"
+DB_PATH = PROJECT_ROOT / "backend" / "data" / "sentra.sqlite"
 
 
 def get_connection():

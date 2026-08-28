@@ -13,7 +13,7 @@ export function SignalTicker() {
       <div className="signal-ticker-track">
         {[...signals, ...signals].map(([label, value, Icon], index) => (
           <div className="signal-ticker-item" key={`${label}-${index}`}>
-            <Icon aria-hidden="true" className="h-4 w-4" />
+            <Icon aria-hidden="true" className="h-3.5 w-3.5" />
             <span>{label}</span>
             <strong>{value}</strong>
           </div>

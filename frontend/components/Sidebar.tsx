@@ -29,26 +29,26 @@ const navItems = [
 
 export function Sidebar() {
   return (
-    <aside className="sticky top-5 hidden h-[calc(100vh-40px)] w-68 shrink-0 flex-col rounded-xl border border-slate-400/20 bg-[#0d1219]/95 p-4 shadow-2xl shadow-black/30 backdrop-blur-xl lg:flex">
-      <div className="flex items-center gap-3 border-b border-white/10 pb-5">
-        <div className="grid h-11 w-11 place-items-center rounded-lg bg-cyan-400 font-black text-slate-950 shadow-lg shadow-cyan-500/20">
-          A
+    <aside className="sticky top-5 hidden h-[calc(100vh-40px)] w-60 shrink-0 flex-col rounded-lg border border-white/[0.06] bg-[#111] p-4 lg:flex">
+      <div className="flex items-center gap-3 border-b border-white/[0.06] pb-4">
+        <div className="grid h-9 w-9 place-items-center rounded bg-[#d4d4d4] text-[11px] font-bold text-[#0a0a0a]">
+          S
         </div>
         <div>
-          <div className="text-sm font-semibold text-white">AegisPay</div>
-          <div className="text-sm text-slate-400">AI Fraud Defense</div>
+          <div className="text-sm font-medium text-[#e5e5e5]">Sentra</div>
+          <div className="text-xs text-[#737373]">Fraud Defense</div>
         </div>
       </div>
 
-      <nav className="mt-5 grid gap-1">
+      <nav className="mt-4 grid gap-0.5">
         {navItems.map(([label, Icon], index) => (
           <a
             key={label}
             href="#"
-            className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition ${
+            className={`flex items-center gap-3 rounded px-3 py-2 text-sm transition ${
               index === 0
-                ? "bg-cyan-400/10 text-white ring-1 ring-cyan-300/15"
-                : "text-slate-300 hover:bg-white/[0.06] hover:text-white"
+                ? "bg-white/[0.08] text-[#e5e5e5]"
+                : "text-[#a3a3a3] hover:bg-white/[0.04] hover:text-[#e5e5e5]"
             }`}
           >
             <Icon className="h-4 w-4" />
@@ -57,8 +57,8 @@ export function Sidebar() {
         ))}
       </nav>
 
-      <div className="mt-auto flex items-center gap-2 rounded-2xl border border-emerald-300/15 bg-emerald-300/[0.06] px-3 py-3 text-sm text-slate-300">
-        <span className="h-2.5 w-2.5 rounded-full bg-emerald-300 shadow-[0_0_18px_rgba(52,211,153,0.85)]" />
+      <div className="mt-auto flex items-center gap-2 rounded border border-white/[0.06] bg-white/[0.02] px-3 py-2.5 text-sm text-[#a3a3a3]">
+        <span className="h-2 w-2 rounded-full bg-[#4ade80]" />
         System Operational
       </div>
     </aside>

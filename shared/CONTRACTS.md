@@ -1,4 +1,4 @@
-# AegisPay Shared Contracts
+# Sentra Shared Contracts
 
 These contracts are the boundary between Purva's systems/backend work and
 Dinesh's AI/ML work. Edit them together only. If one side changes a field name,

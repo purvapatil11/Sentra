@@ -291,7 +291,7 @@ def predict_transaction(
         "top_risk_factors":
             explanation_result["top_risk_factors"],
 
-        "model_version": "aegispay-ml-v1",
+        "model_version": "sentra-ml-v1",
     }
 
 
@@ -354,7 +354,7 @@ if __name__ == "__main__":
         )
 
         print(
-            "AEGISPAY BLUE TEAM RESULT"
+            "SENTRA BLUE TEAM RESULT"
         )
 
         print(

@@ -1,6 +1,6 @@
-# AegisPay
+# Sentra
 
-AegisPay is an adversarial AI payment-fraud simulation MVP. The Red Team
+Sentra is an adversarial AI payment-fraud simulation MVP. The Red Team
 generates fraud scenarios, the simulator creates labeled payment transactions,
 the Blue Team scores them with ML models, and feedback mutates the next attack
 round.
@@ -54,7 +54,7 @@ pnpm install
 pnpm dev
 ```
 
-Open the AegisPay dashboard at `http://127.0.0.1:3000`.
+Open the Sentra dashboard at `http://127.0.0.1:3000`.
 
 The dashboard includes the Main Dashboard, Red Team Lab, Blue Team Cases, and
 the adaptive feedback loop. Keep the backend running on port `8000` while using

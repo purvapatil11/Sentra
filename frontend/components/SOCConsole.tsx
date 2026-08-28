@@ -51,11 +51,11 @@ export function SOCConsole() {
     <section className="soc-console" aria-label="Live SOC terminal telemetry">
       <header className="soc-console-header">
         <div className="flex items-center gap-2">
-          <TerminalSquare className="h-4 w-4" />
-          <span>AEGIS://SOC-LIVE</span>
+          <TerminalSquare className="h-3.5 w-3.5" />
+          <span>SENTRA://SOC-LIVE</span>
         </div>
         <div className="flex items-center gap-2" data-stream-status={status}>
-          <CircleDot className="h-3.5 w-3.5 animate-pulse" />
+          <CircleDot className="h-3 w-3" />
           {status.toUpperCase()}
         </div>
       </header>
@@ -76,7 +76,7 @@ export function SOCConsole() {
           </div>
         )}
         <div className="soc-console-prompt">
-          <span>operator@aegispay:~$</span>
+          <span>operator@sentra:~$</span>
           <i aria-hidden="true" />
         </div>
       </div>

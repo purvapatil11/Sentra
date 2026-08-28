@@ -151,7 +151,7 @@ if __name__ == "__main__":
     from pathlib import Path
 
     parser = argparse.ArgumentParser(
-        description="Generate AegisPay training transactions."
+        description="Generate Sentra training transactions."
     )
     parser.add_argument("--customers", type=int, default=500)
     parser.add_argument("--transactions-per-customer", type=int, default=10)

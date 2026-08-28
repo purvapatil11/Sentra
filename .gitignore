@@ -4,3 +4,4 @@ __pycache__/
 backend/data/*.csv
 frontend/.next/
 frontend/node_modules/
+.venv/

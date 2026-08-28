@@ -9,7 +9,7 @@ import type {
   Transaction,
 } from "./types";
 
-const API_BASE = process.env.NEXT_PUBLIC_AEGISPAY_API ?? "http://127.0.0.1:8000";
+const API_BASE = process.env.NEXT_PUBLIC_SENTRA_API ?? "http://127.0.0.1:8000";
 
 export function getEventStreamUrl(replay = 30): string {
   return `${API_BASE}/events/stream?replay=${replay}`;
@@ -27,7 +27,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
   if (!response.ok) {
     const detail = await response.text();
-    throw new Error(detail || `AegisPay API failed with ${response.status}`);
+    throw new Error(detail || `Sentra API failed with ${response.status}`);
   }
 
   return response.json() as Promise<T>;

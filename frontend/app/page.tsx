@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
 import {
   Activity,
   BadgeIndianRupee,
@@ -23,7 +22,6 @@ import { SignalTicker } from "@/components/SignalTicker";
 import { Sidebar } from "@/components/Sidebar";
 import { SOCConsole } from "@/components/SOCConsole";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { TransactionDecisionsTable } from "@/components/TransactionDecisionsTable";
 import {
   generateCustomers,
   generateFeedback,
@@ -56,7 +54,7 @@ export default function Home() {
 
   const metrics = useMemo(() => {
     const transactions = latestRun?.total_transactions ?? state.transactions.length;
-    const blocked = state.transactions.filter((item) => item.score?.decision === "BLOCK").length;
+    const blocked = state.cases.filter((item) => item.decision === "BLOCK" || item.decision === "VERIFY").length;
     const threats = state.cases.filter((item) => item.risk_level === "HIGH" || item.risk_level === "CRITICAL").length;
     const lossPrevented = state.cases.reduce((sum, item) => sum + item.risk_score * 72000, 0);
 
@@ -126,47 +124,43 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative z-10 flex min-h-screen gap-5 p-5">
+    <div className="relative z-10 flex min-h-screen gap-4 p-4">
       <Sidebar />
 
       <main className="min-w-0 flex-1">
         <SignalTicker />
 
-        <section id="dashboard" className="editorial-hero flex min-h-[330px] flex-col items-start justify-between gap-8 py-10 xl:flex-row">
+        <section id="dashboard" className="flex min-h-[200px] flex-col items-start justify-between gap-6 py-8 xl:flex-row">
           <div>
-            <div className="section-marker" data-index="00">
-              Payment Defense Command Center
-            </div>
-            <h1 className="mt-5 max-w-4xl text-4xl font-black uppercase leading-[1.02] text-white md:text-6xl">
-              Detect. Simulate. Defend against AI-powered payment fraud.
+            <h1 className="max-w-3xl text-3xl font-semibold tracking-tight text-[#e5e5e5] md:text-4xl">
+              Payment Fraud Defense
             </h1>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-300">
-              A cinematic but enterprise-grade command center for Red Team attacks,
-              synthetic fraud streams, Blue Team model scoring, explainable cases, and
-              adaptive feedback.
+            <p className="mt-3 max-w-xl text-sm leading-6 text-[#737373]">
+              Red Team attacks, synthetic fraud streams, Blue Team model scoring,
+              explainable cases, and adaptive feedback.
             </p>
           </div>
 
-          <div className="flex shrink-0 flex-wrap gap-3 pt-2">
+          <div className="flex shrink-0 flex-wrap gap-2 pt-1">
             <ThemeToggle />
             <button
               type="button"
               onClick={seedCustomers}
-              className="rounded-lg border border-slate-400/30 bg-slate-800/70 px-4 py-3 text-sm font-semibold text-white transition hover:border-cyan-300/60 hover:bg-slate-700/70"
+              className="rounded border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-sm text-[#a3a3a3] transition hover:bg-white/[0.08] hover:text-[#e5e5e5]"
             >
               Generate Customers
             </button>
             <button
               type="button"
               onClick={refresh}
-              className="rounded-lg bg-cyan-400 px-4 py-3 text-sm font-bold text-slate-950 shadow-lg shadow-cyan-500/20 transition hover:bg-cyan-300"
+              className="rounded bg-[#e5e5e5] px-3 py-2 text-sm font-medium text-[#0a0a0a] transition hover:bg-[#d4d4d4]"
             >
-              Refresh Intel
+              Refresh
             </button>
           </div>
         </section>
 
-        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+        <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
           <MetricCard
             label="Transactions Analyzed"
             value={loading ? "--" : formatNumber(metrics.transactions)}
@@ -177,7 +171,7 @@ export default function Home() {
           <MetricCard
             label="Fraud Attempts Blocked"
             value={loading ? "--" : formatNumber(metrics.blocked)}
-            detail="BLOCK decisions only"
+            detail="VERIFY and BLOCK decisions"
             tone="green"
             icon={ShieldCheck}
           />
@@ -204,32 +198,18 @@ export default function Home() {
           />
         </section>
 
-        <motion.section
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.45 }}
-          className="mt-5"
-        >
+        <section className="mt-4">
           <SOCConsole />
-        </motion.section>
+        </section>
 
-        <motion.section
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.12 }}
-          className="mt-5 grid gap-5 xl:grid-cols-[1.4fr_0.8fr]"
-        >
-          <motion.article
-            whileHover={{ y: -2 }}
-            className="panel p-5"
-          >
-            <div className="mb-5 flex items-center justify-between gap-4">
+        <section className="mt-4 grid gap-4 xl:grid-cols-[1.4fr_0.8fr]">
+          <article className="panel p-4">
+            <div className="mb-4 flex items-center justify-between gap-3">
               <div>
-                <div className="section-marker text-cyan-300" data-index="01">Main Dashboard</div>
-                <h2 className="mt-2 text-xl font-semibold text-white">Detection rate chart</h2>
+                <p className="text-[10px] font-medium uppercase tracking-wide text-[#737373]">Main Dashboard</p>
+                <h2 className="mt-1 text-sm font-medium text-[#e5e5e5]">Detection rate chart</h2>
               </div>
-              <span className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1 text-xs font-semibold text-emerald-200">
+              <span className="rounded border border-[#4ade80]/20 bg-[#4ade80]/5 px-2 py-0.5 text-[10px] font-medium text-[#4ade80]">
                 LIVE
               </span>
             </div>
@@ -238,84 +218,50 @@ export default function Home() {
               transactions={state.transactions}
               feedback={state.feedback}
             />
-          </motion.article>
+          </article>
 
-          <motion.article whileHover={{ y: -2 }} className="panel p-5">
-            <div className="mb-5">
-              <p className="text-xs font-bold uppercase tracking-normal text-amber-300">
+          <article className="panel p-4">
+            <div className="mb-4">
+              <p className="text-[10px] font-medium uppercase tracking-wide text-[#737373]">
                 Fraud Category Distribution
               </p>
-              <h2 className="mt-2 text-xl font-semibold text-white">Synthetic traffic mix</h2>
+              <h2 className="mt-1 text-sm font-medium text-[#e5e5e5]">Synthetic traffic mix</h2>
             </div>
             <FraudDistributionChart transactions={state.transactions} />
-          </motion.article>
-        </motion.section>
+          </article>
+        </section>
 
-        <motion.section
-          id="attack-lab"
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          className="mt-5 panel p-5"
-        >
-          <div className="mb-5 flex items-center gap-3">
-            <Brain className="h-5 w-5 text-rose-300" />
+        <section id="attack-lab" className="mt-4 panel p-4">
+          <div className="mb-4 flex items-center gap-2">
+            <Brain className="h-4 w-4 text-[#737373]" />
             <div>
-              <div className="section-marker text-rose-300" data-index="02">Red Team Lab</div>
-              <h2 className="mt-2 text-xl font-semibold text-white">
+              <p className="text-[10px] font-medium uppercase tracking-wide text-[#737373]">Red Team Lab</p>
+              <h2 className="mt-1 text-sm font-medium text-[#e5e5e5]">
                 Pick attack type, volume, fraud percentage, and launch
               </h2>
             </div>
           </div>
           <AttackLab onLaunch={onLaunch} />
-        </motion.section>
+        </section>
 
-        <motion.section
-          id="orchestration"
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          className="mt-5"
-        >
+        <section id="orchestration" className="mt-4">
           <OrchestrationPanel
             run={latestRun}
             feedback={state.feedback}
             nextScenario={state.nextScenario}
             onFeedback={onFeedback}
           />
-        </motion.section>
+        </section>
 
-        <motion.section
-          id="transactions"
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          className="mt-5 panel p-5"
-        >
-          <div className="mb-5">
-            <div className="section-marker text-emerald-300" data-index="03">Decision Ledger</div>
-            <h2 className="mt-2 text-xl font-semibold text-white">
-              Every scored transaction and policy decision
-            </h2>
-          </div>
-          <TransactionDecisionsTable transactions={state.transactions} />
-        </motion.section>
-
-        <motion.section
-          id="cases"
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          className="mt-5 panel p-5"
-        >
-          <div className="mb-5">
-            <div className="section-marker text-cyan-300" data-index="04">Blue Team Cases</div>
-            <h2 className="mt-2 text-xl font-semibold text-white">
-              Flagged VERIFY and BLOCK decisions requiring analyst attention
+        <section id="cases" className="mt-4 panel p-4">
+          <div className="mb-4">
+            <p className="text-[10px] font-medium uppercase tracking-wide text-[#737373]">Blue Team Cases</p>
+            <h2 className="mt-1 text-sm font-medium text-[#e5e5e5]">
+              Transaction table, risk score, decision, and explanation text
             </h2>
           </div>
           <CasesTable cases={state.cases} />
-        </motion.section>
+        </section>
       </main>
     </div>
   );

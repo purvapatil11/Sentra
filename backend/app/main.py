@@ -11,7 +11,7 @@ from backend.app.routers.simulate import router as simulate_router
 from backend.app.routers.transactions import router as transactions_router
 
 app = FastAPI(
-    title="AegisPay API",
+    title="Sentra API",
     description="Adversarial AI Payment Fraud Simulation System",
     version="1.0.0"
 )
@@ -43,5 +43,5 @@ app.include_router(feedback_router)
 @app.get("/")
 def root():
     return {
-        "message": "AegisPay backend is running"
+        "message": "Sentra backend is running"
     }

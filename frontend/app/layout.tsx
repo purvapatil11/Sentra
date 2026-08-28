@@ -3,7 +3,7 @@ import { Toaster } from "sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AegisPay Command Center",
+  title: "Sentra Command Center",
   description: "AI fintech fraud simulation and defense dashboard",
 };
 
@@ -17,7 +17,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(() => { try { const saved = localStorage.getItem("aegispay-theme"); const preferred = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"; document.documentElement.dataset.theme = saved || preferred; } catch { document.documentElement.dataset.theme = "dark"; } })();`,
+            __html: `(() => { try { const saved = localStorage.getItem("sentra-theme"); const preferred = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"; document.documentElement.dataset.theme = saved || preferred; } catch { document.documentElement.dataset.theme = "dark"; } })();`,
           }}
         />
       </head>

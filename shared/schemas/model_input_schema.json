@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "AegisPay Model Input",
-  "description": "Feature vector supplied to AegisPay fraud detection models.",
+  "title": "Sentra Model Input",
+  "description": "Feature vector supplied to Sentra fraud detection models.",
   "type": "object",
 
   "required": [

@@ -56,7 +56,7 @@ def get_validation_errors(schema: dict, scenario: dict) -> list[str]:
 
 def local_fallback_enabled() -> bool:
     return os.getenv(
-        "AEGISPAY_LOCAL_FALLBACK",
+        "SENTRA_LOCAL_FALLBACK",
         "true"
     ).lower() in {"1", "true", "yes"}
 
@@ -160,7 +160,7 @@ def generate_llm_scenario(
             "role": "user",
             "content": (
                 "Generate one baseline synthetic "
-                f"AegisPay scenario for {attack_family}."
+                f"Sentra scenario for {attack_family}."
             )
         }
     ]
@@ -179,7 +179,7 @@ def generate_llm_scenario(
                 response_format={
                     "type": "json_schema",
                     "json_schema": {
-                        "name": "aegispay_scenario",
+                        "name": "sentra_scenario",
                         "strict": True,
                         "schema": schema
                     }
@@ -202,7 +202,7 @@ def generate_llm_scenario(
 
             raise RuntimeError(
                 "OpenRouter rate limit hit. Retry later, change "
-                "OPENROUTER_MODEL, or set AEGISPAY_LOCAL_FALLBACK=true."
+                "OPENROUTER_MODEL, or set SENTRA_LOCAL_FALLBACK=true."
             ) from error
 
         except Exception as error:
@@ -285,7 +285,7 @@ if __name__ == "__main__":
         "account_takeover"
     )
 
-    print("\nAegisPay Scenario Generated\n")
+    print("\nSentra Scenario Generated\n")
 
     print(
         json.dumps(

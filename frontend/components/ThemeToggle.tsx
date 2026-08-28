@@ -16,7 +16,7 @@ export function ThemeToggle() {
   function toggleTheme() {
     const nextTheme: Theme = theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = nextTheme;
-    window.localStorage.setItem("aegispay-theme", nextTheme);
+    window.localStorage.setItem("sentra-theme", nextTheme);
     setTheme(nextTheme);
   }
 

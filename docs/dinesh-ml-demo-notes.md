@@ -1,6 +1,6 @@
 # Dinesh AI/ML Demo Notes
 
-Use this as the short explanation for the AI/ML side of AegisPay during team
+Use this as the short explanation for the AI/ML side of Sentra during team
 syncs, PR review, and judging.
 
 ## One-Line Pitch

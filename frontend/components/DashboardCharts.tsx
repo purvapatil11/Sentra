@@ -43,8 +43,8 @@ export function DetectionRateChart({ cases, feedback }: DashboardChartsProps) {
         <AreaChart data={data}>
           <defs>
             <linearGradient id="riskGradient" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#22d3ee" stopOpacity={0.55} />
-              <stop offset="100%" stopColor="#38bdf8" stopOpacity={0.02} />
+              <stop offset="0%" stopColor="#a3a3a3" stopOpacity={0.15} />
+              <stop offset="100%" stopColor="#a3a3a3" stopOpacity={0} />
             </linearGradient>
           </defs>
           <CartesianGrid stroke="var(--chart-grid)" vertical={false} />
@@ -52,29 +52,30 @@ export function DetectionRateChart({ cases, feedback }: DashboardChartsProps) {
           <YAxis stroke="var(--chart-axis)" tickLine={false} axisLine={false} />
           <Tooltip
             contentStyle={{
-              background: "var(--surface-raised)",
-              border: "1px solid rgba(203,213,225,0.3)",
-              borderRadius: 8,
-              color: "var(--foreground)",
+              background: "#1a1a1a",
+              border: "1px solid rgba(255,255,255,0.08)",
+              borderRadius: 4,
+              color: "#e5e5e5",
+              fontSize: 12,
             }}
           />
           <Area
             type="monotone"
             dataKey="risk"
-            stroke="#22d3ee"
-            strokeWidth={2}
+            stroke="#a3a3a3"
+            strokeWidth={1.5}
             fill="url(#riskGradient)"
           />
           <Area
             type="monotone"
             dataKey="fraud"
-            stroke="#fb7185"
-            strokeWidth={2}
+            stroke="#525252"
+            strokeWidth={1.5}
             fill="transparent"
           />
         </AreaChart>
       </ResponsiveContainer>
-      <div className="mt-2 flex justify-between text-sm font-medium text-slate-400">
+      <div className="mt-2 flex justify-between text-xs text-[#525252]">
         <span>Risk and fraud probability</span>
         <span>Detection {feedback ? `${Math.round(feedback.detection_rate * 100)}%` : "--"}</span>
       </div>
@@ -97,7 +98,7 @@ export function FraudDistributionChart({ transactions }: { transactions: Transac
         { name: "account takeover", count: 12 },
       ];
 
-  const colors = ["#34d399", "#fb7185", "#f59e0b", "#22d3ee", "#a78bfa"];
+  const colors = ["#737373", "#525252", "#a3a3a3", "#d4d4d4", "#404040"];
 
   return (
     <div className="h-64">
@@ -115,13 +116,14 @@ export function FraudDistributionChart({ transactions }: { transactions: Transac
           />
           <Tooltip
             contentStyle={{
-              background: "var(--surface-raised)",
-              border: "1px solid rgba(203,213,225,0.3)",
-              borderRadius: 8,
-              color: "var(--foreground)",
+              background: "#1a1a1a",
+              border: "1px solid rgba(255,255,255,0.08)",
+              borderRadius: 4,
+              color: "#e5e5e5",
+              fontSize: 12,
             }}
           />
-          <Bar dataKey="count" radius={[0, 8, 8, 0]}>
+          <Bar dataKey="count" radius={[0, 3, 3, 0]}>
             {data.map((_, index) => (
               <Cell key={index} fill={colors[index % colors.length]} />
             ))}
