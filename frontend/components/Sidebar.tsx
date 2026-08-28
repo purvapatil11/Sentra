@@ -31,9 +31,8 @@ export function Sidebar() {
   return (
     <aside className="sticky top-5 hidden h-[calc(100vh-40px)] w-60 shrink-0 flex-col rounded-lg border border-white/[0.06] bg-[#111] p-4 lg:flex">
       <div className="flex items-center gap-3 border-b border-white/[0.06] pb-4">
-        <div className="grid h-9 w-9 place-items-center rounded bg-[#d4d4d4] text-[11px] font-bold text-[#0a0a0a]">
-          S
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo.png" alt="Sentra logo" className="h-14 w-14 rounded object-contain" />
         <div>
           <div className="text-sm font-medium text-[#e5e5e5]">Sentra</div>
           <div className="text-xs text-[#737373]">Fraud Defense</div>

@@ -21,7 +21,7 @@ import { OrchestrationPanel } from "@/components/OrchestrationPanel";
 import { SignalTicker } from "@/components/SignalTicker";
 import { Sidebar } from "@/components/Sidebar";
 import { SOCConsole } from "@/components/SOCConsole";
-import { ThemeToggle } from "@/components/ThemeToggle";
+
 import {
   generateCustomers,
   generateFeedback,
@@ -142,7 +142,6 @@ export default function Home() {
           </div>
 
           <div className="flex shrink-0 flex-wrap gap-2 pt-1">
-            <ThemeToggle />
             <button
               type="button"
               onClick={seedCustomers}
