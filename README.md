@@ -110,3 +110,21 @@ The current data is synthetic demo data, not real payment data. The fraud rules
 are intentionally clear enough to validate the end-to-end MVP, so model metrics
 can look very high. Present this as pipeline validation, not real-world fraud
 model performance.
+
+## GitHub CI/CD
+
+The GitHub Actions workflow in `.github/workflows/ci-cd.yml` runs for pull
+requests to `main`, pushes to `main`, version tags such as `v1.0.0`, and manual
+runs.
+
+- Backend CI installs Python dependencies, compiles the source, starts FastAPI,
+  and verifies the root health response.
+- Frontend CI installs the locked pnpm dependencies and creates a production
+  Next.js build.
+- After both checks pass on `main` or a version tag, the workflow publishes
+  backend and frontend container images to GitHub Container Registry.
+
+For a hosted frontend, create a GitHub repository variable named
+`NEXT_PUBLIC_SENTRA_API` containing the public backend URL before publishing the
+image. If it is not set, the frontend image defaults to
+`http://127.0.0.1:8000`, which is suitable when running both services locally.
