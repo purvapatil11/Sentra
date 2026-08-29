@@ -17,6 +17,7 @@ import {
   FraudDistributionChart,
 } from "@/components/DashboardCharts";
 import { MetricCard } from "@/components/MetricCard";
+import { ModelEvaluation } from "@/components/ModelEvaluation";
 import { OrchestrationPanel } from "@/components/OrchestrationPanel";
 import { SignalTicker } from "@/components/SignalTicker";
 import { Sidebar } from "@/components/Sidebar";
@@ -255,6 +256,8 @@ export default function Home() {
             <FraudDistributionChart transactions={state.transactions} />
           </article>
         </section>
+
+        <ModelEvaluation transactions={state.transactions} />
 
         <section id="attack-lab" className="panel mt-12 p-5">
           <div className="mb-5 flex items-center gap-3">

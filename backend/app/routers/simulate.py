@@ -94,13 +94,20 @@ def launch_simulation(payload: LaunchRequest):
         total_transactions=payload.volume,
         fraud_ratio=scenario["fraud_ratio"],
         attack_family=scenario["attack_family"],
+        evasion_strength=scenario["evasion_strength"],
+        hard_negative_ratio=min(0.18, 0.06 + 0.12 * scenario["evasion_strength"]),
+        scenario=scenario,
     )
     fraud_count = sum(transaction["label"] == 1 for transaction in transactions)
     publish_event(
         "SIM",
         f"Generated {len(transactions)} transactions with {fraud_count} labeled fraud attempts",
         run_id=run_id,
-        data={"transactions": len(transactions), "fraud_transactions": fraud_count},
+        data={
+            "transactions": len(transactions),
+            "fraud_transactions": fraud_count,
+            "evasion_strength": scenario["evasion_strength"],
+        },
     )
 
     cases = []
