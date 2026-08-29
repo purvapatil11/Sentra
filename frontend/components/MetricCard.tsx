@@ -11,32 +11,26 @@ interface MetricCardProps {
 }
 
 const toneClass = {
-  cyan: "text-[#d4d4d4]",
-  green: "text-[#d4d4d4]",
-  amber: "text-[#d4d4d4]",
-  red: "text-[#d4d4d4]",
-  violet: "text-[#d4d4d4]",
-};
-
-const dotClass = {
-  cyan: "bg-[#a3a3a3]",
-  green: "bg-[#4ade80]",
-  amber: "bg-[#facc15]",
-  red: "bg-[#f87171]",
-  violet: "bg-[#c084fc]",
+  cyan: "text-purple",
+  green: "text-up",
+  amber: "text-[#fbbf24]",
+  red: "text-down",
+  violet: "text-purple",
 };
 
 export function MetricCard({ label, value, detail, tone, icon: Icon }: MetricCardProps) {
   return (
-    <article className="rounded-lg border border-white/[0.06] bg-[#111] p-4">
+    <article className="group flex h-full flex-col bg-raise p-5 transition-colors hover:bg-[#101215]">
       <div className="flex items-start justify-between gap-3">
-        <span className="text-xs font-medium text-[#737373] uppercase tracking-wide">{label}</span>
-        <span className={`h-2 w-2 rounded-full ${dotClass[tone]}`} />
+        <span className="font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-dim">
+          {label}
+        </span>
+        <Icon aria-hidden="true" className={`h-4 w-4 transition-opacity ${toneClass[tone]}`} />
       </div>
-      <div className="mt-4 text-2xl font-semibold text-[#e5e5e5] tabular-nums">
+      <div className="mt-3 font-mono text-[26px] leading-tight font-semibold text-ink tabular-nums">
         {value}
       </div>
-      <p className="mt-1.5 text-xs text-[#525252]">{detail}</p>
+      <p className="mt-auto pt-2.5 text-xs text-faint">{detail}</p>
     </article>
   );
 }

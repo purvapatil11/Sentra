@@ -1,16 +1,29 @@
 @import "tailwindcss";
 
+@theme {
+  --color-bg: #08090b;
+  --color-raise: #0e1013;
+  --color-ink: #f7f8f8;
+  --color-mute: #8a8f98;
+  --color-dim: #5c6067;
+  --color-faint: #4a4d55;
+  --color-purple: #a78bfa;
+  --color-purpledeep: #7c5cf0;
+  --color-up: #4ade80;
+  --color-down: #f87171;
+}
+
 :root {
   color-scheme: dark;
-  --background: #0a0a0a;
-  --foreground: #e5e5e5;
-  --muted: #a3a3a3;
-  --subtle: #737373;
-  --border: rgba(255, 255, 255, 0.08);
-  --surface: #111111;
-  --surface-raised: #1a1a1a;
+  --background: #08090b;
+  --foreground: #f7f8f8;
+  --surface: #0e1013;
+  --surface-raised: #131519;
+  --muted: #8a8f98;
+  --subtle: #5c6067;
+  --border: rgba(255, 255, 255, 0.09);
   --chart-grid: rgba(255, 255, 255, 0.06);
-  --chart-axis: #525252;
+  --chart-axis: #4a4d55;
 }
 
 * {
@@ -24,12 +37,24 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: #0a0a0a;
+  background: #08090b;
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 15px;
-  line-height: 1.5;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 15.5px;
+  line-height: 1.625;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  position: relative;
+}
+
+.font-mono {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+::selection {
+  background: rgba(167, 139, 250, 0.35);
+  color: #fff;
 }
 
 button,
@@ -46,27 +71,130 @@ button:focus-visible,
 a:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  outline: 2px solid #525252;
+  outline: 2px solid #5c6067;
   outline-offset: 2px;
 }
 
 h1,
 h2,
 h3 {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  letter-spacing: -0.01em;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.02em;
 }
 
+/* Lighten hairline borders to the Tickernaut default */
+*,
+*::before,
+*::after {
+  border-color: rgba(255, 255, 255, 0.09);
+}
+
+/* ---- Tickernaut-style effects ---- */
+
+.text-gradient {
+  background: linear-gradient(180deg, #fff, #c9cdd4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.grid-fx {
+  background-image: linear-gradient(90deg, hsla(0, 0%, 100%, 0.04) 1px, transparent 0),
+    linear-gradient(180deg, hsla(0, 0%, 100%, 0.04) 1px, transparent 0);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 55% at 50% 30%, #000 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 30%, #000 20%, transparent 75%);
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  will-change: transform, opacity;
+}
+
+@keyframes tn-drift-a {
+  0%,
+  to {
+    transform: translate3d(-8%, -4%, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(10%, 6%, 0) scale(1.18);
+    opacity: 0.85;
+  }
+}
+
+@keyframes tn-drift-b {
+  0%,
+  to {
+    transform: translate3d(6%, 5%, 0) scale(1.12);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate3d(-9%, -6%, 0) scale(0.94);
+    opacity: 0.8;
+  }
+}
+
+@keyframes tn-drift-c {
+  0%,
+  to {
+    transform: translate3d(0, 4%, 0) scale(0.95);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate3d(4%, -7%, 0) scale(1.25);
+    opacity: 0.65;
+  }
+}
+
+.aurora-a {
+  animation: tn-drift-a 18s ease-in-out infinite;
+}
+.aurora-b {
+  animation: tn-drift-b 22s ease-in-out infinite;
+}
+.aurora-c {
+  animation: tn-drift-c 26s ease-in-out infinite;
+}
+
+@keyframes tn-scan {
+  0% {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+  12%,
+  88% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(700%);
+    opacity: 0;
+  }
+}
+
+.scanline {
+  animation: tn-scan 9s linear infinite;
+  will-change: transform, opacity;
+}
+
+/* ---- Panels & cards ---- */
+
 .panel {
-  border-radius: 6px;
+  border-radius: 12px;
   border: 1px solid var(--border);
   background: var(--surface);
 }
 
-::selection {
-  background: #404040;
-  color: #fff;
+.card {
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
 }
+
+/* ---- Signal ticker ---- */
 
 .signal-ticker {
   overflow: hidden;
@@ -88,7 +216,7 @@ h3 {
   gap: 0.75rem;
   padding: 0.5rem 1.25rem;
   border-right: 1px solid var(--border);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -100,12 +228,14 @@ h3 {
   color: var(--muted);
 }
 
+/* ---- SOC console ---- */
+
 .soc-console {
   overflow: hidden;
   border: 1px solid var(--border);
-  border-radius: 6px;
-  background: #0d0d0d;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  border-radius: 12px;
+  background: #0a0b0e;
+  font-family: var(--font-mono), ui-monospace, monospace;
 }
 
 .soc-console-header {
@@ -127,7 +257,7 @@ h3 {
   max-height: 20rem;
   overflow-y: auto;
   padding: 0.75rem 1rem;
-  color: #a3a3a3;
+  color: #8a8f98;
   font-size: 0.7rem;
   line-height: 1.6;
 }
@@ -139,11 +269,11 @@ h3 {
 }
 
 .soc-console-time {
-  color: #525252;
+  color: #4a4d55;
 }
 
 .soc-console-line strong {
-  color: #d4d4d4;
+  color: #c9cdd4;
 }
 
 .soc-console-line strong[data-source="RED"] {
@@ -151,7 +281,7 @@ h3 {
 }
 
 .soc-console-line strong[data-source="SIM"] {
-  color: #c084fc;
+  color: #a78bfa;
 }
 
 .soc-console-line strong[data-source="ERROR"],
@@ -169,7 +299,7 @@ h3 {
 }
 
 .soc-console-header [data-stream-status="connecting"] {
-  color: #737373;
+  color: #5c6067;
 }
 
 .soc-console-header [data-stream-status="live"] {
@@ -179,7 +309,7 @@ h3 {
 .soc-console-empty {
   border: 1px dashed var(--border);
   padding: 0.75rem;
-  color: #525252;
+  color: #4a4d55;
 }
 
 .soc-console-prompt {
@@ -214,7 +344,11 @@ h3 {
   }
 
   .signal-ticker-track,
-  .soc-console-prompt i {
+  .soc-console-prompt i,
+  .aurora-a,
+  .aurora-b,
+  .aurora-c,
+  .scanline {
     animation: none;
   }
 }

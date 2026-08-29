@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Play, ShieldAlert } from "lucide-react";
+import { Crosshair, Play } from "lucide-react";
 import type { AttackFamily, SimulationRun } from "@/lib/types";
 
 interface AttackLabProps {
@@ -85,43 +85,45 @@ export function AttackLab({ onLaunch }: AttackLabProps) {
           <button
             key={scenario.id}
             onClick={() => setAttackFamily(scenario.id)}
-            className={`rounded-lg border p-4 text-left transition ${
+            className={`rounded-[10px] border p-4 text-left transition ${
               attackFamily === scenario.id
-                ? "border-white/[0.15] bg-white/[0.06]"
-                : "border-white/[0.06] bg-transparent hover:border-white/[0.1]"
+                ? "border-purple/40 bg-purple/[0.08]"
+                : "border-white/[0.06] bg-transparent hover:border-white/[0.12] hover:bg-white/[0.02]"
             }`}
           >
             <div className="mb-4 flex items-center justify-between">
-              <ShieldAlert className="h-4 w-4 text-[#737373]" />
-              <span className="rounded border border-white/[0.08] bg-white/[0.04] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[#a3a3a3]">
+              <span className="grid h-8 w-8 place-items-center rounded-[8px] bg-down/15 text-down">
+                <Crosshair className="h-4.5 w-4.5" />
+              </span>
+              <span className="rounded-full border border-white/[0.08] bg-white/[0.04] px-2.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-mute">
                 {scenario.severity}
               </span>
             </div>
-            <h3 className="text-sm font-medium text-[#e5e5e5]">{scenario.name}</h3>
-            <p className="mt-1.5 text-xs leading-5 text-[#737373]">{scenario.description}</p>
-            <div className="mt-3 text-xs text-[#525252]">{scenario.volume}</div>
+            <h3 className="text-[17px] leading-tight font-semibold text-ink">{scenario.name}</h3>
+            <p className="mt-2 text-[13.5px] leading-6 text-mute">{scenario.description}</p>
+            <div className="mt-3 font-mono text-[13px] font-semibold text-faint">{scenario.volume}</div>
           </button>
         ))}
       </div>
 
-      <div className="rounded-lg border border-white/[0.06] bg-[#111] p-4">
-        <div className="text-[10px] font-medium uppercase tracking-wide text-[#737373]">
+      <div className="rounded-[10px] border border-white/[0.06] bg-raise p-4">
+        <div className="font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-purple">
           Red Team Control
         </div>
         <div className="mt-4 grid gap-3">
-          <label className="grid gap-1.5 text-xs text-[#a3a3a3]">
+          <label className="grid gap-1.5 text-[13px] font-medium text-ink">
             Attack type
             <select
               value={attackFamily}
               onChange={(event) => setAttackFamily(event.target.value as AttackFamily)}
-              className="rounded border border-white/[0.08] bg-[#0a0a0a] px-3 py-2 text-sm text-[#e5e5e5] outline-none"
+              className="rounded border border-white/[0.08] bg-bg px-3 py-2.5 text-[15px] font-medium text-ink outline-none"
             >
               <option value="ai_social_engineering">AI Social Engineering</option>
               <option value="account_takeover">Account Takeover</option>
               <option value="synthetic_identity">Synthetic Identity</option>
             </select>
           </label>
-          <label className="grid gap-1.5 text-xs text-[#a3a3a3]">
+          <label className="grid gap-1.5 text-[13px] font-medium text-ink">
             Volume
             <input
               value={volume}
@@ -129,10 +131,10 @@ export function AttackLab({ onLaunch }: AttackLabProps) {
               max={5000}
               type="number"
               onChange={(event) => setVolume(Number(event.target.value))}
-              className="rounded border border-white/[0.08] bg-[#0a0a0a] px-3 py-2 text-sm text-[#e5e5e5] outline-none"
+              className="rounded border border-white/[0.08] bg-bg px-3 py-2.5 text-[15px] font-medium text-ink outline-none"
             />
           </label>
-          <label className="grid gap-1.5 text-xs text-[#a3a3a3]">
+          <label className="grid gap-1.5 text-[13px] font-medium text-ink">
             Fraud ratio: {Math.round(fraudRatio * 100)}%
             <input
               value={fraudRatio}
@@ -141,16 +143,16 @@ export function AttackLab({ onLaunch }: AttackLabProps) {
               step={0.01}
               type="range"
               onChange={(event) => setFraudRatio(Number(event.target.value))}
-              className="accent-[#a3a3a3]"
+              className="accent-purple"
             />
           </label>
           <button
             type="button"
             onClick={launch}
             disabled={running}
-            className="inline-flex items-center justify-center gap-2 rounded bg-[#e5e5e5] px-4 py-2 text-sm font-medium text-[#0a0a0a] transition hover:bg-[#d4d4d4] disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded bg-ink px-4 py-2.5 text-[15px] font-semibold text-bg transition hover:bg-[#e6e8ea] disabled:opacity-50"
           >
-            <Play className="h-3.5 w-3.5" />
+            <Play className="h-4 w-4" />
             {running ? "Launching..." : "Launch Attack"}
           </button>
         </div>
@@ -159,7 +161,7 @@ export function AttackLab({ onLaunch }: AttackLabProps) {
           {steps.map((step) => (
             <div
               key={step}
-              className="rounded border border-white/[0.04] bg-white/[0.02] px-2.5 py-1.5 text-xs text-[#a3a3a3]"
+              className="rounded border border-white/[0.04] bg-white/[0.02] px-2.5 py-1.5 text-[13px] font-medium text-mute"
             >
               {step}
             </div>

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   Activity,
   BadgeIndianRupee,
-  Brain,
+  Crosshair,
   ShieldCheck,
   ShieldX,
   Target,
@@ -137,36 +137,49 @@ export default function Home() {
       <main className="min-w-0 flex-1">
         <SignalTicker />
 
-        <section id="dashboard" className="flex min-h-[200px] flex-col items-start justify-between gap-6 py-8 xl:flex-row">
-          <div className="w-full">
-            <h1 className="mx-auto mt-16 mb-8 text-center text-5xl font-semibold tracking-tight text-[#e5e5e5] md:text-6xl whitespace-nowrap">
+        <section id="dashboard" className="relative overflow-hidden pt-14 text-center lg:pt-16">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[560px] overflow-hidden" aria-hidden="true">
+            <div className="grid-fx absolute inset-0">
+              <div className="scanline absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple/40 to-transparent" />
+            </div>
+            <div className="aurora-blob aurora-a left-[10%] top-[-8%] h-[300px] w-[420px] bg-purpledeep/25" />
+            <div className="aurora-blob aurora-b right-[6%] top-[-4%] h-[260px] w-[380px] bg-purple/20" />
+            <div className="aurora-blob aurora-c left-1/2 top-[10%] h-[240px] w-[460px] -translate-x-1/2 bg-[#4c1d95]/25" />
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-bg" />
+          </div>
+
+          <div className="relative">
+            <div className="mx-auto mb-5 inline-flex items-center rounded-full border border-purple/25 bg-purple/[0.08] px-3.5 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-purple">
+              Red Team · Blue Team · Adaptive Loop
+            </div>
+            <h1 className="text-gradient mx-auto max-w-[820px] text-[34px] leading-[1.08] font-semibold tracking-[-0.028em] sm:text-[44px] lg:text-[56px]">
               Smart defence for every transaction
             </h1>
-            <p className="mx-auto mb-16 mt-3 max-w-xl text-center text-base font-semibold leading-7 text-[#a3a3a3]">
+            <p className="text-mute mx-auto mt-5 max-w-[560px] text-[15.5px] leading-relaxed sm:text-[16.5px]">
               Red Team attacks, synthetic fraud streams, Blue Team model scoring,
               explainable cases, and adaptive feedback.
             </p>
-          </div>
 
-          <div className="flex shrink-0 flex-wrap gap-2 pt-1">
-            <button
-              type="button"
-              onClick={seedCustomers}
-              className="rounded border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-sm text-[#a3a3a3] transition hover:bg-white/[0.08] hover:text-[#e5e5e5]"
-            >
-              Generate Customers
-            </button>
-            <button
-              type="button"
-              onClick={refresh}
-              className="rounded bg-[#e5e5e5] px-3 py-2 text-sm font-medium text-[#0a0a0a] transition hover:bg-[#d4d4d4]"
-            >
-              Refresh
-            </button>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={seedCustomers}
+                className="rounded-lg border border-white/[0.09] bg-white/[0.03] px-4 py-2.5 text-sm text-mute transition hover:border-white/[0.15] hover:bg-white/[0.06] hover:text-ink"
+              >
+                Generate Customers
+              </button>
+              <button
+                type="button"
+                onClick={refresh}
+                className="rounded-lg bg-ink px-4 py-2.5 text-sm font-medium text-bg transition hover:bg-[#e6e8ea]"
+              >
+                Refresh
+              </button>
+            </div>
           </div>
         </section>
 
-        <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+        <section className="mt-6 grid gap-px overflow-hidden rounded-[14px] border border-white/[0.06] bg-white/[0.06] md:grid-cols-3 xl:grid-cols-5">
           <MetricCard
             label="Transactions Analyzed"
             value={loading ? "--" : formatNumber(metrics.transactions)}
@@ -204,19 +217,23 @@ export default function Home() {
           />
         </section>
 
-        <section className="mt-4">
+        <section className="mt-10">
           <SOCConsole />
         </section>
 
-        <section className="mt-4 grid gap-4 xl:grid-cols-[1.4fr_0.8fr]">
-          <article className="panel p-4">
-            <div className="mb-4 flex items-center justify-between gap-3">
+        <section className="mt-12 grid gap-5 xl:grid-cols-[1.4fr_0.8fr]">
+          <article className="panel p-5">
+            <div className="mb-5 flex items-center justify-between gap-3">
               <div>
-                <p className="text-[10px] font-medium uppercase tracking-wide text-[#737373]">Main Dashboard</p>
-                <h2 className="mt-1 text-sm font-medium text-[#e5e5e5]">Detection rate chart</h2>
+                <span className="font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-purple">
+                  Main Dashboard
+                </span>
+                <h2 className="mt-2 text-xl font-semibold tracking-[-0.02em] text-ink md:text-[22px]">
+                  Detection rate chart
+                </h2>
               </div>
-              <span className="rounded border border-[#4ade80]/20 bg-[#4ade80]/5 px-2 py-0.5 text-[10px] font-medium text-[#4ade80]">
-                LIVE
+              <span className="rounded-full border border-up/25 bg-up/10 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-up">
+                Live
               </span>
             </div>
             <DetectionRateChart
@@ -226,31 +243,37 @@ export default function Home() {
             />
           </article>
 
-          <article className="panel p-4">
-            <div className="mb-4">
-              <p className="text-[10px] font-medium uppercase tracking-wide text-[#737373]">
+          <article className="panel p-5">
+            <div>
+              <span className="font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-purple">
                 Fraud Category Distribution
-              </p>
-              <h2 className="mt-1 text-sm font-medium text-[#e5e5e5]">Synthetic traffic mix</h2>
+              </span>
+              <h2 className="mt-2 text-xl font-semibold tracking-[-0.02em] text-ink md:text-[22px]">
+                Synthetic traffic mix
+              </h2>
             </div>
             <FraudDistributionChart transactions={state.transactions} />
           </article>
         </section>
 
-        <section id="attack-lab" className="mt-4 panel p-4">
-          <div className="mb-4 flex items-center gap-2">
-            <Brain className="h-4 w-4 text-[#737373]" />
+        <section id="attack-lab" className="panel mt-12 p-5">
+          <div className="mb-5 flex items-center gap-3">
+            <div className="grid h-10 w-10 shrink-0 place-items-center rounded-[10px] border border-down/25 bg-down/10">
+              <Crosshair className="h-5 w-5 text-down" />
+            </div>
             <div>
-              <p className="text-[10px] font-medium uppercase tracking-wide text-[#737373]">Red Team Lab</p>
-              <h2 className="mt-1 text-sm font-medium text-[#e5e5e5]">
-                Pick attack type, volume, fraud percentage, and launch
+              <h2 className="text-2xl font-semibold tracking-[-0.02em] text-ink md:text-[24px]">
+                Red Team Lab
               </h2>
+              <span className="mt-1 block font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-dim">
+                Pick attack type, volume, fraud percentage, and launch
+              </span>
             </div>
           </div>
           <AttackLab onLaunch={onLaunch} />
         </section>
 
-        <section id="orchestration" className="mt-4">
+        <section id="orchestration" className="mt-12">
           <OrchestrationPanel
             run={latestRun}
             feedback={state.feedback}
@@ -259,12 +282,19 @@ export default function Home() {
           />
         </section>
 
-        <section id="cases" className="mt-4 panel p-4">
-          <div className="mb-4">
-            <p className="text-[10px] font-medium uppercase tracking-wide text-[#737373]">Blue Team Cases</p>
-            <h2 className="mt-1 text-sm font-medium text-[#e5e5e5]">
-              Transaction table, risk score, decision, and explanation text
-            </h2>
+        <section id="cases" className="panel mt-12 p-5">
+          <div className="mb-5 flex items-center gap-3">
+            <div className="grid h-10 w-10 shrink-0 place-items-center rounded-[10px] border border-[#38bdf8]/25 bg-[#38bdf8]/10">
+              <ShieldCheck className="h-5 w-5 text-[#38bdf8]" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-semibold tracking-[-0.02em] text-ink md:text-[24px]">
+                Blue Team Cases
+              </h2>
+              <span className="mt-1 block font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-dim">
+                Transaction table, risk score, decision, and explanation text
+              </span>
+            </div>
           </div>
           <CasesTable cases={state.cases} />
         </section>

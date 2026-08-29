@@ -38,47 +38,63 @@ export function DetectionRateChart({ cases, feedback }: DashboardChartsProps) {
       ];
 
   return (
-    <div className="h-72">
-      <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={data}>
-          <defs>
-            <linearGradient id="riskGradient" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#a3a3a3" stopOpacity={0.15} />
-              <stop offset="100%" stopColor="#a3a3a3" stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <CartesianGrid stroke="var(--chart-grid)" vertical={false} />
-          <XAxis dataKey="name" stroke="var(--chart-axis)" tickLine={false} axisLine={false} />
-          <YAxis stroke="var(--chart-axis)" tickLine={false} axisLine={false} />
-          <Tooltip
-            contentStyle={{
-              background: "#1a1a1a",
-              border: "1px solid rgba(255,255,255,0.08)",
-              borderRadius: 4,
-              color: "#e5e5e5",
-              fontSize: 12,
-            }}
-          />
-          <Area
-            type="monotone"
-            dataKey="risk"
-            stroke="#a3a3a3"
-            strokeWidth={1.5}
-            fill="url(#riskGradient)"
-          />
-          <Area
-            type="monotone"
-            dataKey="fraud"
-            stroke="#525252"
-            strokeWidth={1.5}
-            fill="transparent"
-          />
-        </AreaChart>
-      </ResponsiveContainer>
-      <div className="mt-2 flex justify-between text-xs text-[#525252]">
-        <span>Risk and fraud probability</span>
-        <span>Detection {feedback ? `${Math.round(feedback.detection_rate * 100)}%` : "--"}</span>
+    <div className="mt-6">
+      <div className="mb-3 flex items-center justify-between">
+        <div className="flex items-center gap-4 font-mono text-[11px] uppercase tracking-[0.1em] text-dim">
+          <span className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-purple" />
+            Risk
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-faint" />
+            Fraud
+          </span>
+        </div>
+        <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-faint">
+          Detection {feedback ? `${Math.round(feedback.detection_rate * 100)}%` : "--"}
+        </span>
       </div>
+      <div className="h-64">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={data}>
+            <defs>
+              <linearGradient id="riskGradient" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stopColor="#a78bfa" stopOpacity={0.18} />
+                <stop offset="100%" stopColor="#a78bfa" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid stroke="var(--chart-grid)" vertical={false} />
+            <XAxis dataKey="name" stroke="var(--chart-axis)" tickLine={false} axisLine={false} />
+            <YAxis stroke="var(--chart-axis)" tickLine={false} axisLine={false} />
+            <Tooltip
+              contentStyle={{
+                background: "#131519",
+                border: "1px solid rgba(255,255,255,0.09)",
+                borderRadius: 10,
+                color: "#f7f8f8",
+                fontSize: 12,
+              }}
+            />
+            <Area
+              type="monotone"
+              dataKey="risk"
+              stroke="#a78bfa"
+              strokeWidth={2}
+              fill="url(#riskGradient)"
+            />
+            <Area
+              type="monotone"
+              dataKey="fraud"
+              stroke="#5c6067"
+              strokeWidth={1.5}
+              fill="transparent"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+      <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.1em] text-faint">
+        Risk and fraud probability
+      </p>
     </div>
   );
 }
@@ -98,10 +114,10 @@ export function FraudDistributionChart({ transactions }: { transactions: Transac
         { name: "account takeover", count: 12 },
       ];
 
-  const colors = ["#737373", "#525252", "#a3a3a3", "#d4d4d4", "#404040"];
+  const colors = ["#a78bfa", "#8a8f98", "#7c5cf0", "#5c6067", "#4a4d55"];
 
   return (
-    <div className="h-64">
+    <div className="mt-6 h-64">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} layout="vertical" margin={{ left: 18 }}>
           <CartesianGrid stroke="var(--chart-grid)" horizontal={false} />
@@ -109,17 +125,17 @@ export function FraudDistributionChart({ transactions }: { transactions: Transac
           <YAxis
             type="category"
             dataKey="name"
-            width={120}
+            width={140}
             stroke="var(--chart-axis)"
             tickLine={false}
             axisLine={false}
           />
           <Tooltip
             contentStyle={{
-              background: "#1a1a1a",
-              border: "1px solid rgba(255,255,255,0.08)",
-              borderRadius: 4,
-              color: "#e5e5e5",
+              background: "#131519",
+              border: "1px solid rgba(255,255,255,0.09)",
+              borderRadius: 10,
+              color: "#f7f8f8",
               fontSize: 12,
             }}
           />
