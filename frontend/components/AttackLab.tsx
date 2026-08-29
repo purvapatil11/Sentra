@@ -43,30 +43,14 @@ const scenarios: Array<{
   },
 ];
 
-const sequence = [
-  "Initializing adversarial simulation...",
-  "Generating fraud persona... complete",
-  "Generating transaction behavior... complete",
-  "Injecting behavioral anomalies... complete",
-  "Launching attack...",
-  "Blue Team analysis started automatically.",
-];
-
 export function AttackLab({ onLaunch }: AttackLabProps) {
   const [attackFamily, setAttackFamily] = useState<AttackFamily>("ai_social_engineering");
   const [volume, setVolume] = useState(100);
   const [fraudRatio, setFraudRatio] = useState(0.2);
   const [running, setRunning] = useState(false);
-  const [steps, setSteps] = useState<string[]>([]);
 
   async function launch() {
     setRunning(true);
-    setSteps([]);
-
-    for (const step of sequence) {
-      setSteps((items) => [...items, step]);
-      await new Promise((resolve) => window.setTimeout(resolve, 260));
-    }
 
     await onLaunch({
       attack_family: attackFamily,
@@ -157,15 +141,13 @@ export function AttackLab({ onLaunch }: AttackLabProps) {
           </button>
         </div>
 
-        <div className="mt-4 grid gap-1.5">
-          {steps.map((step) => (
-            <div
-              key={step}
-              className="rounded border border-white/[0.04] bg-white/[0.02] px-2.5 py-1.5 text-[13px] font-medium text-mute"
-            >
-              {step}
+        <div className="mt-4">
+          {running ? (
+            <div className="flex items-center gap-2 rounded border border-purple/25 bg-purple/[0.06] px-3 py-2.5">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-purple" />
+              <span className="text-[13px] font-medium text-purple">Launching attack…</span>
             </div>
-          ))}
+          ) : null}
         </div>
       </div>
     </section>
