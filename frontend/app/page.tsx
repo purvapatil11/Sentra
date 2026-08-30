@@ -137,41 +137,41 @@ export default function Home() {
       <main className="min-w-0 flex-1">
         <SignalTicker />
 
-        <section id="dashboard" className="relative overflow-hidden pt-14 text-center lg:pt-16">
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-[560px] overflow-hidden" aria-hidden="true">
+        <section id="dashboard" className="relative flex min-h-screen items-center overflow-hidden py-20 text-center">
+          <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
             <div className="grid-fx absolute inset-0">
               <div className="scanline absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple/40 to-transparent" />
             </div>
-            <div className="aurora-blob aurora-a left-[10%] top-[-8%] h-[300px] w-[420px] bg-purpledeep/25" />
-            <div className="aurora-blob aurora-b right-[6%] top-[-4%] h-[260px] w-[380px] bg-purple/20" />
-            <div className="aurora-blob aurora-c left-1/2 top-[10%] h-[240px] w-[460px] -translate-x-1/2 bg-[#4c1d95]/25" />
+            <div className="aurora-blob aurora-a left-[8%] top-[-10%] h-[420px] w-[560px] bg-purpledeep/25" />
+            <div className="aurora-blob aurora-b right-[4%] top-[-6%] h-[380px] w-[520px] bg-purple/20" />
+            <div className="aurora-blob aurora-c left-1/2 top-[8%] h-[340px] w-[600px] -translate-x-1/2 bg-[#4c1d95]/25" />
             <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-bg" />
           </div>
 
-          <div className="relative">
-            <div className="mx-auto mb-5 inline-flex items-center rounded-full border border-purple/25 bg-purple/[0.08] px-3.5 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-purple">
+          <div className="relative mx-auto w-full max-w-[1200px]">
+            <div className="mb-6 inline-flex items-center rounded-full border border-purple/25 bg-purple/[0.08] px-4 py-1.5 font-mono text-[12px] uppercase tracking-[0.14em] text-purple">
               Red Team · Blue Team · Adaptive Loop
             </div>
-            <h1 className="text-gradient mx-auto max-w-[820px] text-[34px] leading-[1.08] font-semibold tracking-[-0.028em] sm:text-[44px] lg:text-[56px]">
+            <h1 className="text-gradient mx-auto max-w-[1200px] text-[54px] leading-[1.02] font-bold tracking-[-0.01em] [font-family:var(--font-display)] sm:text-[76px] lg:text-[104px]">
               Smart defence for every transaction
             </h1>
-            <p className="text-mute mx-auto mt-5 max-w-[560px] text-[15.5px] leading-relaxed sm:text-[16.5px]">
+            <p className="text-mute mx-auto mt-6 max-w-[720px] text-base leading-relaxed sm:text-lg lg:text-xl">
               Red Team attacks, synthetic fraud streams, Blue Team model scoring,
               explainable cases, and adaptive feedback.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
               <button
                 type="button"
                 onClick={seedCustomers}
-                className="rounded-lg border border-white/[0.09] bg-white/[0.03] px-4 py-2.5 text-sm text-mute transition hover:border-white/[0.15] hover:bg-white/[0.06] hover:text-ink"
+                className="rounded-lg border border-white/[0.09] bg-white/[0.03] px-5 py-3 text-sm text-mute transition hover:border-white/[0.15] hover:bg-white/[0.06] hover:text-ink"
               >
                 Generate Customers
               </button>
               <button
                 type="button"
                 onClick={refresh}
-                className="rounded-lg bg-ink px-4 py-2.5 text-sm font-medium text-bg transition hover:bg-[#e6e8ea]"
+                className="rounded-lg bg-ink px-5 py-3 text-sm font-medium text-bg transition hover:bg-[#e6e8ea]"
               >
                 Refresh
               </button>

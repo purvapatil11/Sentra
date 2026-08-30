@@ -83,6 +83,12 @@ h3 {
   letter-spacing: -0.02em;
 }
 
+h1,
+h1::first-line {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  letter-spacing: -0.005em;
+}
+
 /* Lighten hairline borders to the Tickernaut default */
 *,
 *::before,

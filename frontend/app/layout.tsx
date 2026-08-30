@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Libre_Baskerville } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+const libreBaskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -30,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} ${libreBaskerville.variable}`} suppressHydrationWarning>
         {children}
         <Toaster richColors position="bottom-right" />
       </body>
