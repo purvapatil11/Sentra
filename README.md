@@ -84,6 +84,19 @@ flowchart LR
     NEXT --> UI
 ```
 
+## ScreenShots :
+
+<img width="1890" height="906" alt="Screenshot 2026-08-30 183727" src="https://github.com/user-attachments/assets/0182844f-e973-4d9f-b5b2-dfd79cf8a6ce" />
+<img width="1887" height="902" alt="Screenshot 2026-08-30 183748" src="https://github.com/user-attachments/assets/ab9372ee-2650-4cab-9ece-c9f9aeac187a" />
+<img width="1900" height="842" alt="Screenshot 2026-08-30 183801" src="https://github.com/user-attachments/assets/cf18c5e0-b53d-40f1-ae04-55d0341752ea" />
+<img width="1880" height="907" alt="Screenshot 2026-08-30 183828" src="https://github.com/user-attachments/assets/c2e7b030-7c78-4d5f-8c44-9b4ccf82d262" />
+<img width="1867" height="891" alt="Screenshot 2026-08-30 183853" src="https://github.com/user-attachments/assets/0aa8cd0b-0919-46ac-9f9d-44f17d1b90a5" />
+
+
+
+
+
+
 ### Component Responsibilities
 
 | Layer | Technology | Responsibility |
@@ -98,6 +111,10 @@ flowchart LR
 | Investigator | Deterministic feature-based explanation | Grounds every explanation in actual transaction features for demo reliability |
 | Persistence | SQLite | Stores runs, customers, scored transactions, cases, and feedback |
 | Live telemetry | Server-Sent Events | Streams Red Team, simulation, model, policy, and feedback events to the SOC console |
+
+
+
+
 
 ## End-to-End Processing Flow
 
@@ -229,6 +246,9 @@ mutation. It then produces a schema-validated candidate for the next round.
   calibrate on historical outcomes, and deploy the scoring API behind payment
   orchestration controls.
 
+
+  
+
 ### Suggested Closing Line
 
 > Sentra does not only detect yesterday's fraud. It attacks its own defenses,
@@ -247,6 +267,8 @@ mutation. It then produces a schema-validated candidate for the next round.
 - Inspect explainable Blue Team cases.
 - Measure precision, recall, F1, FPR, and the confusion matrix.
 - Generate adaptive feedback and a next-round scenario.
+
+
 
 ## API Surface
 
@@ -268,6 +290,8 @@ FastAPI provides interactive documentation at `/docs`.
 
 Shared request and response boundaries are documented in
 [`shared/CONTRACTS.md`](shared/CONTRACTS.md).
+
+
 
 ## Repository Structure
 
